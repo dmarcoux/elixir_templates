@@ -10,6 +10,8 @@ mkShell {
     inotify-tools
     # Database PostgreSQL
     postgresql_14
+    # Database SQLite
+    # sqlite
     # Locales
     glibcLocales
   ];
