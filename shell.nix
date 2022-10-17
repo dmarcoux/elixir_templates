@@ -6,6 +6,8 @@ mkShell {
   buildInputs = [
     # Elixir 1.14 with Erlang/OTP 25 (relying on the package `elixir_1_14` alone isn't enough, as the version of Erlang cannot be specified)
     beam.packages.erlangR25.elixir_1_14
+    # Erlang build tool
+    rebar3
     # For the Live Reloading feature in Phoenix
     inotify-tools
     # Database PostgreSQL
