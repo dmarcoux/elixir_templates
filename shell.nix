@@ -8,8 +8,6 @@ mkShell {
     beam.packages.erlangR25.elixir_1_14
     # The package manager for Erlang
     beam.packages.erlangR25.hex
-    # Erlang build tool
-    rebar3
     # For the Live Reloading feature in Phoenix
     inotify-tools
     # Database SQLite
@@ -34,6 +32,9 @@ mkShell {
 
     # Persist history of the IEx (Elixir) and erl (Erlang) shells
     export ERL_AFLAGS="-kernel shell_history enabled"
+
+    # Install rebar3, the Erlang build tool
+    mix local.rebar --force
 
     # Install the Phoenix application generator
     mix archive.install --force hex phx_new
