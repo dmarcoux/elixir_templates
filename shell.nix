@@ -6,6 +6,8 @@ mkShell {
   buildInputs = [
     # Elixir 1.14 with Erlang/OTP 25 (relying on the package `elixir_1_14` alone isn't enough, as the version of Erlang cannot be specified)
     beam.packages.erlangR25.elixir_1_14
+    # The package manager for Erlang
+    beam.packages.erlangR25.hex
     # Erlang build tool
     rebar3
     # For the Live Reloading feature in Phoenix
@@ -20,11 +22,16 @@ mkShell {
     # Set LANG for locales, otherwise it is unset when running "nix-shell --pure"
     export LANG="C.UTF-8"
 
+    # Keep Mix and Hex data in the project (Be sure to ignore those directories in `.gitignore`)
+    export MIX_HOME="$PWD/.nix-mix"
+    export HEX_HOME="$PWD/.nix-hex"
+    mkdir -p "$MIX_HOME" "$HEX_HOME"
+    # Put executables from Mix and Hex directories in $PATH
+    export PATH="$MIX_HOME/bin:$MIX_HOME/escripts:$HEX_HOME/bin:$PATH"
+
     # Set development environment for Mix
     export MIX_ENV=dev
 
-    # Install Hex
-    mix local.hex --force
 
     # Install the Phoenix application generator
     mix archive.install --force hex phx_new

@@ -1,0 +1,3 @@
+# Mix and Hex from nix-shell
+.nix-mix/
+.nix-hex/
