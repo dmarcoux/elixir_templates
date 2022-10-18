@@ -32,6 +32,8 @@ mkShell {
     # Set development environment for Mix
     export MIX_ENV=dev
 
+    # Persist history of the IEx (Elixir) and erl (Erlang) shells
+    export ERL_AFLAGS="-kernel shell_history enabled"
 
     # Install the Phoenix application generator
     mix archive.install --force hex phx_new
