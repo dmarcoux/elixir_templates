@@ -10,8 +10,6 @@ mkShell {
     rebar3
     # For the Live Reloading feature in Phoenix
     inotify-tools
-    # Database PostgreSQL
-    postgresql_14
     # Database SQLite
     # sqlite
     # Locales

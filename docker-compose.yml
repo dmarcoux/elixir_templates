@@ -1,0 +1,17 @@
+version: '3.4'
+services:
+  postgres:
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_DB=database_dev
+    # https://hub.docker.com/_/postgres
+    image: postgres:15.0
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data # Cache PostgreSQL's data
+
+volumes:
+  # Cache PostgreSQL's data
+  postgres-data:

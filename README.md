@@ -13,3 +13,13 @@ package manager.
 
 1. Copy at the root of the Elixir/Phoenix project.
 2. Start with `nix-shell --pure`.
+
+## Docker-Compose for PostgreSQL
+
+Setting up PostgreSQL inside nix-shell is cumbersome, so I prefer to rely on the
+official Docker image for PostgreSQL.
+
+### Usage
+
+1. Copy at the root of the Elixir/Phoenix project.
+2. Start with `docker-compose up`.
