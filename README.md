@@ -23,3 +23,8 @@ official Docker image for PostgreSQL.
 
 1. Copy at the root of the Elixir/Phoenix project.
 2. Start with `docker-compose up`.
+
+## SQLite
+
+To use SQLite instead of PostgreSQL, uncomment the `sqlite` package in
+[shell.nix](./shell.nix).
