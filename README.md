@@ -2,7 +2,7 @@
 
 Templates for common files/configs I use in Elixir projects.
 
-## nix-shell
+## nix-shell for Elixir and Phoenix
 
 Reproducible development environment for Elixir and
 [Phoenix](https://www.phoenixframework.org) projects which relies on
