@@ -41,7 +41,7 @@ in
       # Set the path to the rebar3 package from Nix
       mix local.rebar --if-missing rebar3 ${erlang.rebar3}/bin/rebar3
 
-      # Install the Phoenix application generator
+      # Install the Phoenix application generator - https://hex.pm/packages/phx_new
       mix archive.install --force hex phx_new 1.6.14
     '';
 
