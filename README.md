@@ -6,13 +6,9 @@ projects.
 
 ## nix-shell for Elixir and Phoenix
 
-Development environment for Elixir/Phoenix projects which relies on
+Reproducible development environment for Elixir/Phoenix projects which relies on
 [Nix](https://github.com/NixOS/nix), a purely functional and cross-platform
 package manager.
-
-To make this fully reproducible, it should rely on the Nix package for Rebar3.
-Somehow, Phoenix cannot find Rebar3 even though it's in $PATH. It's good enough
-for now...
 
 ### Usage
 
