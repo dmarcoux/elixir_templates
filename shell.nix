@@ -42,7 +42,8 @@ in
       mix local.rebar --if-missing rebar3 ${erlang.rebar3}/bin/rebar3
 
       # Install the Phoenix application generator - https://hex.pm/packages/phx_new
-      mix archive.install --force hex phx_new 1.6.14
+      # TODO: Improve this... It isn't needed most of the time and it adds ~3 seconds to the startup time of this Nix shell
+      # mix archive.install --force hex phx_new 1.6.14
     '';
 
     # Without this, there are warnings about LANG, LC_ALL and locales.
