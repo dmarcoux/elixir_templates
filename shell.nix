@@ -3,7 +3,9 @@
 with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/8de8b98839d1f20089582cfe1a81207258fcc1f1.tar.gz) {});
 
 let
+  # Define variables for packages which are referenced more than once in this nix-shell
   erlang = beam.packages.erlangR25;
+  rebar3 = erlang.rebar3;
 in
   mkShell {
     buildInputs = [
@@ -12,7 +14,7 @@ in
       # The package manager for Erlang
       erlang.hex
       # The build tool for Erlang
-      erlang.rebar3 # If changing this package, do not forget to replicate the change below in `shellHook`
+      rebar3
       # For the Live Reloading feature in Phoenix
       inotify-tools
       # Database SQLite
@@ -39,7 +41,7 @@ in
       export ERL_AFLAGS="-kernel shell_history enabled"
 
       # Set the path to the rebar3 package from Nix
-      mix local.rebar --if-missing rebar3 ${erlang.rebar3}/bin/rebar3
+      mix local.rebar --if-missing rebar3 ${rebar3}/bin/rebar3
 
       # Install the Phoenix application generator - https://hex.pm/packages/phx_new
       # TODO: Improve this... It isn't needed most of the time and it adds ~3 seconds to the startup time of this Nix shell
