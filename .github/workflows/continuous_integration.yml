@@ -1,4 +1,4 @@
-name: Check format and lint Elixir code
+name: Continuous integration
 
 # Running on the branch main and on all PRs
 on:
@@ -8,7 +8,8 @@ on:
   pull_request:
 
 jobs:
-  check_format_and_lint:
+  # TODO: Split this job in multiple jobs to group similar tasks together (like setup, audit dependencies, format, lint, tests, etc...)
+  continuous_integration:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
@@ -31,8 +32,8 @@ jobs:
           cache-name: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
         with:
           path: |
-            deps
-            _build
+            deps # Where Mix downloads dependencies
+            _build # # Where Mix stores compiled artifacts
           key: ${{ env.cache-name }}${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ env.cache-name }}
@@ -40,6 +41,15 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: mix deps.get
+
+      - name: Find unused dependencies # https://hexdocs.pm/mix/Mix.Tasks.Deps.Unlock.html
+        run: mix deps.unlock --check-unused
+
+      - name: Check for retired dependencies # https://hexdocs.pm/hex/Mix.Tasks.Hex.Audit.html
+        run: mix hex.audit
+
+      - name: Check for vulnerable dependencies # https://github.com/mirego/mix_audit
+        run: mix deps.audit
 
       - name: Check format of Elixir code # https://hexdocs.pm/mix/main/Mix.Tasks.Format.html
         run: mix format --dry-run --check-formatted
