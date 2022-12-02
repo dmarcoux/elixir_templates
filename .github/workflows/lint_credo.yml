@@ -27,13 +27,15 @@ jobs:
       - name: Restore dependencies from cache if possible
         uses: actions/cache@v3
         id: cache # To expose the `cache-hit` output through `steps.cache.outputs.cache-hit`
+        env:
+          cache-name: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
         with:
           path: |
             deps
             _build
-          key: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-${{ hashFiles('**/mix.lock') }}
+          key: ${{ env.cache-name }}${{ hashFiles('**/mix.lock') }}
           restore-keys: |
-            mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
+            ${{ env.cache-name }}
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
