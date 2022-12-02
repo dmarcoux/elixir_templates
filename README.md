@@ -31,3 +31,7 @@ Docker image for PostgreSQL is much simpler.
 
 To use SQLite instead of PostgreSQL, uncomment the line with the `sqlite`
 package in [shell.nix](./shell.nix).
+
+## Continuous Integration with [GitHub Actions](https://docs.github.com/en/actions)
+
+Linters, tests and more. Details in the files under [.github/workflows](./.github/workflows).
