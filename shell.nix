@@ -15,8 +15,10 @@ in
       erlang.hex
       # The build tool for Erlang
       rebar3
+      # CHANGEME: Uncomment this package if you develop Phoenix applications, otherwise delete this.
       # For the Live Reloading feature in Phoenix
-      inotify-tools
+      # inotify-tools
+      # CHANGEME: Uncomment this package if you develop applications with SQLite, otherwise delete this.
       # Database SQLite
       # sqlite
       # Locales
@@ -43,6 +45,7 @@ in
       # Set the path to the rebar3 package from Nix
       mix local.rebar --if-missing rebar3 ${rebar3}/bin/rebar3
 
+      # CHANGEME: Uncomment this if you need to generate Phoenix applications, otherwise delete this.
       # Install the Phoenix application generator - https://hex.pm/packages/phx_new
       # TODO: Improve this... It isn't needed most of the time and it adds ~3 seconds to the startup time of this Nix shell
       # mix archive.install --force hex phx_new 1.6.15
