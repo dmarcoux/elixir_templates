@@ -7,10 +7,11 @@ projects.
 ## How to Use This Template
 
 1. Create a new repository based on this repository:
+
 - Go to this [repository's page](https://github.com/dmarcoux/elixir_templates),
   click on the `Use this template` button and follow instructions.
 
-*OR*
+  *OR*
 
 - With [GitHub's CLI](https://github.com/cli/cli), run `gh repo create
   NEW_REPOSITORY_NAME --template=dmarcoux/elixir_templates`.
