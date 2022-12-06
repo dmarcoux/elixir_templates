@@ -69,9 +69,9 @@ jobs:
         # CHANGEME: Replace the `run` line above with the `run` line below
         # run: mix credo --strict
 
-        # CHANGEME: Remove this if the applications don't have a database
-      - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
-        run: mix ecto.create && mix ecto.migrate && mix ecto.rollback --all
+      # CHANGEME: Uncomment this step if the project uses Ecto, otherwise delete this step
+      # - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
+      #   run: mix ecto.create && mix ecto.migrate && mix ecto.rollback --all
 
       - name: Run tests # https://hexdocs.pm/mix/Mix.Tasks.Test.html
         run: mix test
