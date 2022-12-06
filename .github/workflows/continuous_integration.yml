@@ -23,10 +23,6 @@ jobs:
           otp-version: '25'
           elixir-version: '1.14.2'
 
-      # CHANGEME: Remove this it's not needed for your project, it's only for the CI to run, while avoiding to track this code with Git
-      - name: Create an empty Elixir project for the CI to run
-        run: mix new .
-
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
       # With `if: steps.cache.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
       # A partial key match via `restore-keys` or a cache miss will set `cache-hit` to 'false'.
@@ -43,6 +39,10 @@ jobs:
           restore-keys: |
             ${{ env.cache-name }}
 
+      # CHANGEME: Remove this it's not needed for your project, it's only for the CI to run, while avoiding to track this code with Git
+      - name: Create an empty Elixir project and add dependencies for the CI to run
+        run: mix new . && mix escript.install --force hex mix_audit 2.0.2 && mix escript.install --force hex credo 1.6.7
+
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: mix deps.get
@@ -54,7 +54,9 @@ jobs:
         run: mix hex.audit
 
       - name: Check for vulnerable dependencies # https://github.com/mirego/mix_audit
-        run: mix deps.audit
+        run: mix_audit
+        # CHANGEME: Replace the `run` line above with the `run` line below
+        # run: mix deps.audit
 
       - name: Check format of Elixir code # https://hexdocs.pm/mix/main/Mix.Tasks.Format.html
         run: mix format --dry-run --check-formatted
@@ -63,7 +65,9 @@ jobs:
         run: mix compile --all-warnings --warning-as-errors
 
       - name: Lint Elixir code # Credo's strict analysis: https://hexdocs.pm/credo/basic_usage.html#strict-analysis
-        run: mix credo --strict
+        run: credo --strict
+        # CHANGEME: Replace the `run` line above with the `run` line below
+        # run: mix credo --strict
 
         # CHANGEME: Remove this if the applications don't have a database
       - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
