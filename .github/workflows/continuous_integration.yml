@@ -32,9 +32,11 @@ jobs:
         env:
           cache-name: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
         with:
+          # deps -> where Mix downloads dependencies
+          # _build -> where Mix stores compiled artifacts
           path: |
-            deps # Where Mix downloads dependencies
-            _build # # Where Mix stores compiled artifacts
+            deps
+            _build
           key: ${{ env.cache-name }}${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ env.cache-name }}
