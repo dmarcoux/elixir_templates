@@ -1,6 +1,6 @@
 # To ensure this nix-shell is reproducible, we pin the packages index to a commit SHA taken from a channel on https://status.nixos.org/
-# This commit is from NixOS 22.05
-with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/8de8b98839d1f20089582cfe1a81207258fcc1f1.tar.gz) {});
+# This commit is from NixOS 22.11
+with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/7a6a010c3a1d00f8470a5ca888f2f927f1860a19.tar.gz) {});
 
 let
   # Define variables for packages which are referenced more than once in this nix-shell
