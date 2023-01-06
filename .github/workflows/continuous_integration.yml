@@ -46,7 +46,8 @@ jobs:
         run: >
           mix new . &&
           mix escript.install --force hex mix_audit 2.0.2 &&
-          mix escript.install --force hex credo 1.6.7
+          mix escript.install --force hex credo 1.6.7 &&
+          mix escript.install --force hex sobelow 0.11.1
 
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
@@ -73,6 +74,12 @@ jobs:
         run: credo --strict
         # CHANGEME: Replace the `run` line above with the `run` line below
         # run: mix credo --strict
+
+      - name: Check Elixir code for security vulnerabilities # https://github.com/nccgroup/sobelow
+        # `--private` is to prevent Sobelow from checking for updates, this is handled by Dependabot
+        run: sobelow --private
+        # CHANGEME: Replace the `run` line above with the `run` line below
+        # run: mix sobelow --private
 
       # CHANGEME: Uncomment this step if the project uses Ecto, otherwise delete this step
       # - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
