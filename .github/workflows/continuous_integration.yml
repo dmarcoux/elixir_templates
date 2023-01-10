@@ -12,6 +12,24 @@ jobs:
   #       It would be nice if the setup could be reused, so it doesn't need to happen in every job (https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)
   continuous_integration:
     runs-on: ubuntu-22.04
+
+    # CHANGEME: Remove or adapt this service based on your project needs
+    services:
+      # Database for the test suite, be sure to use the same Docker image in docker-compose.yml
+      postgres:
+        image: postgres:15.0
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: database_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
