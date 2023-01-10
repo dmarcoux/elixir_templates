@@ -13,6 +13,9 @@ jobs:
   continuous_integration:
     runs-on: ubuntu-22.04
 
+    env:
+      MIX_ENV: test
+
     # CHANGEME: Remove or adapt this service based on your project needs
     services:
       # Database for the test suite, be sure to use the same Docker image in docker-compose.yml
