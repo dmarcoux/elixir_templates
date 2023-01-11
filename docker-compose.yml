@@ -2,8 +2,9 @@ version: '3.4'
 services:
   postgres:
     environment:
-      - POSTGRES_USER=postgres_user
-      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      # CHANGEME: Rename database to match your database from development environment configuration
       - POSTGRES_DB=database_dev
     # https://hub.docker.com/_/postgres
     image: postgres:15.0
