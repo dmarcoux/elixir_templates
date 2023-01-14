@@ -39,9 +39,6 @@ in
       # Put executables from Mix and Hex directories in $PATH
       export PATH="$MIX_HOME/bin:$MIX_HOME/escripts:$HEX_HOME/bin:$PATH"
 
-      # Set development environment for Mix
-      export MIX_ENV=dev
-
       # Persist history of the IEx (Elixir) and erl (Erlang) shells
       export ERL_AFLAGS="-kernel shell_history enabled"
 
