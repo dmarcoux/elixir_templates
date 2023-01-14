@@ -29,6 +29,9 @@ in
       # Set LANG for locales, otherwise it is unset when running "nix-shell --pure"
       export LANG="C.UTF-8"
 
+      # Remove duplicate commands from Bash shell command history
+      export HISTCONTROL=ignoreboth:erasedups
+
       # Keep Mix and Hex data in the project (Be sure to ignore those directories in `.gitignore`)
       export MIX_HOME="$PWD/.nix-mix"
       export HEX_HOME="$PWD/.nix-hex"
