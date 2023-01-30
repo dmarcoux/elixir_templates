@@ -23,6 +23,8 @@ in
       # sqlite
       # Locales
       glibcLocales
+      # Install certificates to prevent SSL errors
+      cacert
     ];
 
     shellHook = ''
