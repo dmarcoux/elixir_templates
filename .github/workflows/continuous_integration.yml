@@ -11,6 +11,7 @@ jobs:
   # TODO: Split this job in multiple jobs to group similar tasks together (like setup, audit dependencies, format, lint, tests, etc...)
   #       It would be nice if the setup could be reused, so it doesn't need to happen in every job (https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)
   continuous_integration:
+    name: Continuous integration
     runs-on: ubuntu-22.04
 
     env:
