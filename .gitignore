@@ -1,3 +1,3 @@
-# Mix and Hex from nix-shell
+# Mix and Hex from development environment in nix-shell
 .nix-mix/
 .nix-hex/
