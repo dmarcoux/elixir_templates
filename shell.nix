@@ -6,6 +6,8 @@ let
   # Define variables for packages which are referenced more than once in this nix-shell
   erlang = beam.packages.erlangR25;
   rebar3 = erlang.rebar3;
+  # CHANGEME: Remove the next line if you don't need Sass
+  sass = nodePackages.sass;
 in
   mkShell {
     buildInputs = [
@@ -46,6 +48,17 @@ in
 
       # Set the path to the rebar3 package from Nix
       mix local.rebar --if-missing rebar3 ${rebar3}/bin/rebar3
+
+      # CHANGEME: Remove the `export MIX_SASS_*` lines if you don't need Sass
+      # Set environment variables which we use in Phoenix's configuration (`config/config.exs`) for dart-sass
+      # Example:
+      #
+      # config :dart_sass,
+      #   version: System.get_env("MIX_SASS_VERSION"),
+      #   path: System.get_env("MIX_SASS_PATH"),
+      #   (...)
+      export MIX_SASS_PATH="${sass}/bin/sass"
+      export MIX_SASS_VERSION="1.56.0" # The version can be found in $MIX_SASS_PATH
     '';
 
     # Without this, there are warnings about LANG, LC_ALL and locales.
