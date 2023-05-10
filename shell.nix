@@ -1,13 +1,13 @@
 # To ensure this nix-shell is reproducible, we pin the packages index to a commit SHA taken from a channel on https://status.nixos.org/
-# This commit is from NixOS 22.11
-with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/7a6a010c3a1d00f8470a5ca888f2f927f1860a19.tar.gz) {});
+# This commit is from nixpkgs-unstable, it's somewhere between NixOS 22.11 and the following version
+with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/9524f57dd5b3944c819dd594aed8ed941932ef56.tar.gz) {});
 
 let
   # Define variables for packages which are referenced more than once in this nix-shell
   erlang = beam.packages.erlangR25;
   rebar3 = erlang.rebar3;
   # CHANGEME: Remove the next line if you don't need Sass
-  sass = nodePackages.sass;
+  sass = dart-sass;
 in
   mkShell {
     buildInputs = [
@@ -58,7 +58,7 @@ in
       #   path: System.get_env("MIX_SASS_PATH"),
       #   (...)
       export MIX_SASS_PATH="${sass}/bin/sass"
-      export MIX_SASS_VERSION="1.56.0" # The version can be found in $MIX_SASS_PATH
+      export MIX_SASS_VERSION="1.62.1" # The version can be found in $MIX_SASS_PATH
     '';
 
     # Without this, there are warnings about LANG, LC_ALL and locales.
