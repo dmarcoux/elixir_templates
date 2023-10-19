@@ -42,8 +42,8 @@ jobs:
         uses: erlef/setup-beam@v1.16
         id: setup-beam
         with:
-          otp-version: '25'
-          elixir-version: '1.14.2'
+          otp-version: '26'
+          elixir-version: '1.15.7'
 
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
       # With `if: steps.cache.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
