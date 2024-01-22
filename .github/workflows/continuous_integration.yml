@@ -49,7 +49,7 @@ jobs:
       # With `if: steps.cache.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
       # A partial key match via `restore-keys` or a cache miss will set `cache-hit` to 'false'.
       - name: Restore dependencies from cache if possible
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache # To expose the `cache-hit` output through `steps.cache.outputs.cache-hit`
         env:
           cache-name: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
