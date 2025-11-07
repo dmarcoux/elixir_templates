@@ -8,7 +8,7 @@ services:
       - POSTGRES_DB=database_dev
     # https://hub.docker.com/_/postgres
     # Be sure to use the same Docker image in the continuous integration
-    image: postgres:16.0
+    image: postgres:18.0
     ports:
       - '5432:5432'
     volumes:

@@ -1,10 +1,10 @@
 # To ensure this nix-shell is reproducible, we pin the packages index to a commit SHA taken from a channel on https://status.nixos.org/
-# This commit is from nixpkgs-unstable, it's somewhere between NixOS 23.05 and the following version
-with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/b5f8ec6be261dfc44c3b56b220e2793d1b61512b.tar.gz) {});
+# This commit is from nixpkgs-unstable, it's somewhere between NixOS 25.05 and the following version
+with (import (fetchTarball https://github.com/NixOS/nixpkgs/archive/ae814fd3904b621d8ab97418f1d0f2eb0d3716f4.tar.gz) {});
 
 let
   # Define variables for packages which are referenced more than once in this nix-shell
-  erlang = beam.packages.erlangR26;
+  erlang = beam.packages.erlang_28;
   rebar3 = erlang.rebar3;
   # CHANGEME: Remove the next line if you don't need Sass
   sass = dart-sass;
@@ -12,7 +12,7 @@ in
   mkShell {
     buildInputs = [
       # Elixir with Erlang/OTP specified in the `erlang` variable (relying on the package `elixir` alone isn't enough, as the version of Erlang cannot be specified)
-      erlang.elixir_1_15
+      erlang.elixir_1_19
       # The package manager for Erlang
       erlang.hex
       # The build tool for Erlang

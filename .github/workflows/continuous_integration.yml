@@ -12,7 +12,7 @@ jobs:
   #       It would be nice if the setup could be reused, so it doesn't need to happen in every job (https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts)
   continuous_integration:
     name: Continuous integration
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     env:
       MIX_ENV: test
@@ -21,7 +21,7 @@ jobs:
     services:
       # Database for the test suite, be sure to use the same Docker image in docker-compose.yml
       postgres:
-        image: postgres:16.0
+        image: postgres:18.0
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -36,14 +36,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Elixir and OTP
-        uses: erlef/setup-beam@v1.17
+        uses: erlef/setup-beam@v1.20.4
         id: setup-beam
         with:
-          otp-version: '26'
-          elixir-version: '1.15.7'
+          otp-version: '28'
+          elixir-version: '1.19.2'
 
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
       # With `if: steps.cache.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
@@ -67,9 +67,9 @@ jobs:
       - name: Create an empty Elixir project and add dependencies for the CI to run
         run: >
           mix new . &&
-          mix escript.install --force hex mix_audit 2.0.2 &&
-          mix escript.install --force hex credo 1.6.7 &&
-          mix escript.install --force hex sobelow 0.11.1
+          mix escript.install --force hex mix_audit 2.1.5 &&
+          mix escript.install --force hex credo 1.7.13 &&
+          mix escript.install --force hex sobelow 0.14.1
 
       - name: Install and compile dependencies
         if: steps.cache.outputs.cache-hit != 'true'
