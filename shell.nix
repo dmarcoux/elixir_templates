@@ -35,8 +35,8 @@ in
       export HISTCONTROL=ignoreboth:erasedups
 
       # Keep Mix and Hex data in the project (Be sure to ignore those directories in `.gitignore`)
-      export MIX_HOME="$PWD/.nix-mix"
-      export HEX_HOME="$PWD/.nix-hex"
+      export MIX_HOME="$PWD/.mix"
+      export HEX_HOME="$PWD/.hex"
       mkdir -p "$MIX_HOME" "$HEX_HOME"
       # Put executables from Mix and Hex directories in $PATH
       export PATH="$MIX_HOME/bin:$MIX_HOME/escripts:$HEX_HOME/bin:$PATH"
