@@ -8,11 +8,11 @@ services:
       - POSTGRES_DB=database_dev
     # https://hub.docker.com/_/postgres
     # Be sure to use the same Docker image in the continuous integration
-    image: postgres:18.0
+    image: postgres:18.1
     ports:
       - '5432:5432'
     volumes:
-      - postgres-data:/var/lib/postgresql/data # Cache PostgreSQL's data
+      - postgres-data:/var/lib/postgres # Cache PostgreSQL's data
 
 volumes:
   # Cache PostgreSQL's data
