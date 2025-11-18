@@ -1,0 +1,26 @@
+[tools]
+erlang = "28.1.1"
+elixir = "1.19.3-otp-28"
+
+[settings]
+# Hooks are experimental
+experimental = true
+
+[env]
+# Keep Mix and Hex data in the project (Those directories are ignored in `.gitignore`)
+MIX_HOME = "{{config_root}}/.mix"
+HEX_HOME = "{{config_root}}/.hex"
+# Persist history of the IEx (Elixir) and erl (Erlang) shells
+ERL_AFLAGS = "-kernel shell_history enabled"
+# Put executables from Mix and Hex directories in $PATH
+_.path = [
+  "{{env.MIX_HOME}}/bin",
+  "{{env.MIX_HOME}}/escripts",
+  "{{env.HEX_HOME}}/bin",
+]
+
+[hooks]
+# Create directories for $MIX_HOME and $HEX_HOME if needed
+preinstall = """
+  mkdir -p "$MIX_HOME" "$HEX_HOME"
+"""

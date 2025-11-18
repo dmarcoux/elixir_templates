@@ -31,6 +31,11 @@ package manager.
 2. Add the content of [.gitignore](./.gitignore) to your own _.gitignore_.
 3. Start with `nix-shell --pure`.
 
+## Mise
+
+Development environment relying on [Mise](https://mise.jdx.dev/) to install
+Elixir and Erlang. It's an alternative to the `nix-shell` approach.
+
 ## Docker-Compose for PostgreSQL
 
 Setting up PostgreSQL inside nix-shell is cumbersome, so relying on the official
