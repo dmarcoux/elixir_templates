@@ -29,7 +29,7 @@ package manager.
 
 1. Copy [shell.nix](./shell.nix) at the root of your Elixir/Phoenix project.
 2. Add the content of [.gitignore](./.gitignore) to your own _.gitignore_.
-3. Start with `nix-shell --pure`.
+3. Start with `nix-shell`.
 
 ## Mise
 
