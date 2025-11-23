@@ -1,3 +1,3 @@
-# Mix and Hex from development environment
+# Mix and Hex home directories as configured in the development environment
 .mix/
 .hex/

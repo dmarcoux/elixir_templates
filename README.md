@@ -19,6 +19,8 @@ projects.
 2. Search for `CHANGEME` in the newly created repository to adapt it to your
    needs.
 
+3. Pick nix-shell or Mise for the development environment.
+
 ## nix-shell for Elixir and Phoenix
 
 Reproducible development environment for Elixir/Phoenix projects which relies on
@@ -33,19 +35,21 @@ package manager.
 
 ## Mise
 
-Development environment relying on [Mise](https://mise.jdx.dev/) to install
-Elixir and Erlang. It's an alternative to the `nix-shell` approach.
+We rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
+variables, and run tasks. Refer to [mise.toml](mise.toml) for details. See what
+is available with:
+
+```bash
+mise run
+```
 
 ## Docker-Compose for PostgreSQL
 
-Setting up PostgreSQL inside nix-shell is cumbersome, so relying on the official
-Docker image for PostgreSQL is much simpler.
+Start with:
 
-### Usage
-
-1. Copy [docker-compose.yml](./docker-compose.yml) at the root of your
-  Elixir/Phoenix project.
-2. Start with `docker-compose up`.
+```bash
+docker-compose up
+```
 
 ## SQLite
 
