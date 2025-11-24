@@ -24,3 +24,8 @@ _.path = [
 preinstall = """
   mkdir -p "$MIX_HOME" "$HEX_HOME"
 """
+# Install Hex and Rebar locally
+postinstall = """
+  mix local.hex --force --if-missing
+  mix local.rebar --force --if-missing
+"""
