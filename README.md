@@ -36,19 +36,11 @@ package manager.
 ## Mise
 
 We rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
-variables, and run tasks. Refer to [mise.toml](mise.toml) for details. See what
-is available with:
+variables, and run tasks. Refer to [mise.toml](mise.toml) for details. See
+available tasks with:
 
 ```bash
 mise run
-```
-
-## Docker-Compose for PostgreSQL
-
-Start with:
-
-```bash
-docker-compose up
 ```
 
 ## SQLite
