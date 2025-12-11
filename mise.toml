@@ -29,3 +29,49 @@ postinstall = """
   mix local.hex --force --if-missing
   mix local.rebar --force --if-missing
 """
+
+[tasks.docker-compose-up]
+description = "Start Docker Compose services, waiting for them to be healthy before exiting"
+run = "docker compose up --wait"
+
+[tasks.server]
+description = "Start the Phoenix application with debugging enabled" # https://hexdocs.pm/elixir/debugging.html#pry
+depends = [ "docker-compose-up" ]
+run = "iex --dbg pry -S mix phx.server"
+alias = "s"
+
+[tasks.iex]
+description = "Start an interactive shell with all dependencies"
+depends = [ "docker-compose-up" ]
+run = "iex -S mix"
+alias = "i"
+
+[tasks.format]
+description = "Format Elixir code"
+run = "mix format"
+alias = "f"
+
+[tasks.test]
+description = "Run tests"
+depends = [ "docker-compose-up" ]
+run = "mix test"
+alias = "t"
+
+[tasks.db-setup]
+description = "Set up the database"
+depends = [ "db-create", "db-migrate", "db-seed" ]
+
+[tasks.db-create]
+description = "Create the database"
+depends = [ "docker-compose-up" ]
+run = "mix ecto.create"
+
+[tasks.db-migrate]
+description = "Migrate the database"
+depends = [ "docker-compose-up" ]
+run = "mix ecto.migrate"
+
+[tasks.db-seed]
+description = "Seed the database"
+depends = [ "docker-compose-up" ]
+run = "mix run priv/repo/seeds.exs"
