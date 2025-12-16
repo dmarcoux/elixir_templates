@@ -1,6 +1,8 @@
 [tools]
 erlang = "28.2"
 elixir = "1.19.4-otp-28"
+# Watch for file changes
+watchexec = "2.3.2"
 
 [settings]
 # Hooks are experimental
@@ -29,6 +31,12 @@ postinstall = """
   mix local.hex --force --if-missing
   mix local.rebar --force --if-missing
 """
+
+
+[tasks.watch-compile]
+description = "Automatically recompile Elixir code when Elixir files change"
+# It runs at most once every 5 seconds, and restarts if it's still running
+run = "watchexec --debounce 5sec --restart --clear --exts 'ex,exs' -- mix compile --force"
 
 [tasks.docker-compose-up]
 description = "Start Docker Compose services, waiting for them to be healthy before exiting"
