@@ -83,3 +83,11 @@ run = "mix ecto.migrate"
 description = "Seed the database"
 depends = [ "docker-compose-up" ]
 run = "mix run priv/repo/seeds.exs"
+
+[tasks.credo]
+description = "Lint Elixir code to enforce code consistency"
+run = "mix credo --strict"
+
+[tasks.sobelow]
+description = "Check Elixir code for security vulnerabilities"
+run = "mix sobelow --private"
