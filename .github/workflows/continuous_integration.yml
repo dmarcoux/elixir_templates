@@ -87,7 +87,7 @@ jobs:
         # run: mix deps.audit
 
       - name: Check format of Elixir code # https://hexdocs.pm/mix/main/Mix.Tasks.Format.html
-        run: mix format --dry-run --check-formatted
+        run: mix format --check-formatted
 
       - name: Ensure the Elixir code compiles # https://hexdocs.pm/mix/Mix.Tasks.Compile.html
         run: mix compile --all-warnings --warning-as-errors
