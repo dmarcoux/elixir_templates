@@ -35,7 +35,7 @@ package manager.
 
 ## Mise
 
-We rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
+Rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
 variables, and run tasks. Refer to [mise.toml](mise.toml) for details. See
 available tasks with:
 
