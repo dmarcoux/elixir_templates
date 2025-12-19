@@ -36,8 +36,18 @@ package manager.
 ## Mise
 
 Rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
-variables, and run tasks. Refer to [mise.toml](mise.toml) for details. See
-available tasks with:
+variables, and run tasks. Refer to [mise.toml](mise.toml) for details. The Mise
+documentation is there to help you get started, there's no need to repeat it all
+here. It boils down to activating Mise (_optional_), installing tools, and
+running tasks.
+
+Install tools with:
+
+```bash
+mise install
+```
+
+See available tasks with:
 
 ```bash
 mise run
