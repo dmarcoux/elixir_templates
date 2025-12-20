@@ -84,6 +84,11 @@ description = "Seed the database"
 depends = [ "docker-compose-up" ]
 run = "mix run priv/repo/seeds.exs"
 
+[tasks.db-rollback]
+description = "Roll back the database"
+depends = [ "docker-compose-up" ]
+run = "mix ecto.rollback"
+
 [tasks.credo]
 description = "Lint Elixir code to enforce code consistency"
 run = "mix credo --strict"
