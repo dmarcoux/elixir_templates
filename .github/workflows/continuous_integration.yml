@@ -46,22 +46,35 @@ jobs:
           elixir-version: '1.19.2'
 
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
-      # With `if: steps.cache.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
+      # With `if: steps.cache-deps.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
       # A partial key match via `restore-keys` or a cache miss will set `cache-hit` to 'false'.
       - name: Restore dependencies from cache if possible
         uses: actions/cache@v5
-        id: cache # To expose the `cache-hit` output through `steps.cache.outputs.cache-hit`
+        id: cache-deps
         env:
-          cache-name: mix-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
+          cache-name: deps-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
         with:
           # deps -> where Mix downloads dependencies
-          # _build -> where Mix stores compiled artifacts
-          path: |
-            deps
-            _build
+          path: deps
           key: ${{ env.cache-name }}${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ env.cache-name }}
+
+      # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
+      # With `if: steps.cache-build.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
+      # A partial key match via `restore-keys` or a cache miss will set `cache-hit` to 'false'.
+      - name: Restore dependencies from cache if possible
+        uses: actions/cache@v5
+        id: cache-build
+        env:
+          cache-name: build-${{ runner.os }}-${{ steps.setup-beam.outputs.otp-version }}-${{ steps.setup-beam.outputs.elixir-version }}-
+        with:
+          # _build -> where Mix stores compiled artifacts
+          path: _build
+          key: ${{ env.cache-name }}${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ env.cache-name }}
+
 
       # CHANGEME: Remove this step, it's not needed for your project. It's only for the CI to run, while avoiding to track this code with Git
       - name: Create an empty Elixir project and add dependencies for the CI to run
@@ -72,7 +85,6 @@ jobs:
           mix escript.install --force hex sobelow 0.14.1
 
       - name: Install and compile dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: mix do deps.get + deps.compile
 
       - name: Find unused dependencies # https://hexdocs.pm/mix/Mix.Tasks.Deps.Unlock.html
