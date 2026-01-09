@@ -38,12 +38,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup Elixir and OTP
-        uses: erlef/setup-beam@v1.20.4
+      - name: Read Elixir and Erlang versions from mise.toml
+        id: versions
+        run: |
+          echo "elixir=$(sed -n 's|elixir = \"\(.*\)\"|\1|p' mise.toml)" >> "$GITHUB_OUTPUT"
+          echo "erlang=$(sed -n 's|erlang = \"\(.*\)\"|\1|p' mise.toml)" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Elixir and Erlang
+        uses: erlef/setup-beam@v1
         id: setup-beam
         with:
-          otp-version: '28'
-          elixir-version: '1.19.2'
+          otp-version: ${{ steps.versions.outputs.erlang }}
+          elixir-version: ${{ steps.versions.outputs.elixir }}
 
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
       # With `if: steps.cache-deps.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
@@ -63,7 +69,7 @@ jobs:
       # Whenever a cache hit occurs for the exact `key` match defined below, this step sets the `cache-hit` outputs to 'true'.
       # With `if: steps.cache-build.outputs.cache-hit != 'true'`, this can be used in steps to run or ignore them based on the cache hit.
       # A partial key match via `restore-keys` or a cache miss will set `cache-hit` to 'false'.
-      - name: Restore dependencies from cache if possible
+      - name: Restore build from cache if possible
         uses: actions/cache@v5
         id: cache-build
         env:
@@ -76,15 +82,7 @@ jobs:
             ${{ env.cache-name }}
 
 
-      # CHANGEME: Remove this step, it's not needed for your project. It's only for the CI to run, while avoiding to track this code with Git
-      - name: Create an empty Elixir project and add dependencies for the CI to run
-        run: >
-          mix new . &&
-          mix escript.install --force hex mix_audit 2.1.5 &&
-          mix escript.install --force hex credo 1.7.13 &&
-          mix escript.install --force hex sobelow 0.14.1
-
-      - name: Install and compile dependencies
+      - name: Install and compile dependencies # https://hexdocs.pm/mix/Mix.Tasks.Deps.Get.html & https://hexdocs.pm/mix/Mix.Tasks.Deps.Compile.html
         run: mix do deps.get + deps.compile
 
       - name: Find unused dependencies # https://hexdocs.pm/mix/Mix.Tasks.Deps.Unlock.html
@@ -94,9 +92,7 @@ jobs:
         run: mix hex.audit
 
       - name: Check for vulnerable dependencies # https://github.com/mirego/mix_audit
-        run: mix_audit
-        # CHANGEME: Replace the `run` line above with the `run` line below
-        # run: mix deps.audit
+        run: mix deps.audit
 
       - name: Ensure Elixir code is formatted # https://hexdocs.pm/mix/Mix.Tasks.Format.html
         run: mix format --check-formatted
@@ -105,19 +101,17 @@ jobs:
         run: mix compile --all-warnings --warning-as-errors
 
       - name: Lint Elixir code to enforce code consistency # Credo's strict analysis: https://hexdocs.pm/credo/basic_usage.html#strict-analysis
-        run: credo --strict
-        # CHANGEME: Replace the `run` line above with the `run` line below
-        # run: mix credo --strict
+        run: mix credo --strict
 
       - name: Check Elixir code for security vulnerabilities # https://github.com/nccgroup/sobelow
-        # `--private` is to prevent Sobelow from checking for updates, this is handled by Dependabot
-        run: sobelow --private
-        # CHANGEME: Replace the `run` line above with the `run` line below
-        # run: mix sobelow --private
+        # `--private` is to prevent Sobelow from checking for updates, this does not belong in the CI
+        run: mix sobelow --private
 
-      # CHANGEME: Uncomment this step if the project uses Ecto, otherwise delete this step
-      # - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
-      #   run: mix ecto.create && mix ecto.migrate && mix ecto.rollback --all
+      - name: Check Elixir code for type mismatches, unreachable code and other issues # https://hexdocs.pm/dialyxir/Mix.Tasks.Dialyzer.html
+        run: mix dialyzer --list-unused-filters --format github
+
+      - name: Verify database migrations and if they can fully rollback # https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html
+        run: mix ecto.create && mix ecto.migrate && mix ecto.rollback --all
 
       - name: Run tests # https://hexdocs.pm/mix/Mix.Tasks.Test.html
         run: mix test
