@@ -88,3 +88,13 @@ run = "mix credo --strict"
 [tasks.sobelow]
 description = "Check Elixir code for security vulnerabilities"
 run = "mix sobelow --private"
+
+[tasks.compile]
+description = "Ensure the Elixir code compiles"
+run = "mix compile --all-warnings --warning-as-errors"
+
+# This doesn't include all checks from the continuous integration, only those who often fail.
+[tasks.pre-ci]
+description = "Run this to ensure code is formatted, and passes Credo + Sobelow checks"
+depends = ["format", "compile", "credo", "sobelow", "test"]
+alias = "p"
