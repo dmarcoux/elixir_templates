@@ -19,7 +19,7 @@ jobs:
     services:
       # Database for the test suite, be sure to use the same Docker image in docker-compose.yml
       postgres:
-        image: postgres:18.0
+        image: postgres:18.1
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
