@@ -21,6 +21,28 @@ projects.
 
 3. Pick nix-shell or Mise for the development environment.
 
+4. For a [Phoenix](https://www.phoenixframework.org/) application, generate it with:
+
+   1. Set up [development environment](#development-environment):
+
+      ```bash
+      mise install
+      ```
+
+   2. Install [phx_new](https://hex.pm/packages/phx_new):
+
+      ```bash
+      mix archive.install hex phx_new 1.8.3
+      ```
+
+      _Omit the version (`1.8.3`) to install latest version of `phx_new`._
+
+   3. Generate the Phoenix application within the current directory:
+
+      ```bash
+      mix phx.new . --app awesome_name
+      ```
+
 ## nix-shell for Elixir and Phoenix
 
 Reproducible development environment for Elixir/Phoenix projects which relies on
