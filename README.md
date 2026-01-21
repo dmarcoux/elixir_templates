@@ -19,9 +19,7 @@ projects.
 2. Search for `CHANGEME` in the newly created repository to adapt it to your
    needs.
 
-3. Pick nix-shell or Mise for the development environment.
-
-4. For a [Phoenix](https://www.phoenixframework.org/) application, generate it with:
+3. For a [Phoenix](https://www.phoenixframework.org/) application, generate it with:
 
    1. Set up [development environment](#development-environment):
 
@@ -43,19 +41,7 @@ projects.
       mix phx.new . --app awesome_name
       ```
 
-## nix-shell for Elixir and Phoenix
-
-Reproducible development environment for Elixir/Phoenix projects which relies on
-[Nix](https://github.com/NixOS/nix), a purely functional and cross-platform
-package manager.
-
-### Usage
-
-1. Copy [shell.nix](./shell.nix) at the root of your Elixir/Phoenix project.
-2. Add the content of [.gitignore](./.gitignore) to your own _.gitignore_.
-3. Start with `nix-shell`.
-
-## Mise
+## Development Environment
 
 Rely on [Mise](https://mise.jdx.dev/) to install tools, set environment
 variables, and run tasks. Refer to [mise.toml](mise.toml) for details. The Mise
@@ -74,11 +60,6 @@ See available tasks with:
 ```bash
 mise run
 ```
-
-## SQLite
-
-To use SQLite instead of PostgreSQL, uncomment the line with the `sqlite`
-package in [shell.nix](./shell.nix).
 
 ## Continuous Integration with [GitHub Actions](https://docs.github.com/en/actions)
 

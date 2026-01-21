@@ -1,6 +1,8 @@
 [tools]
 erlang = "28.3.1"
 elixir = "1.19.5-otp-28"
+# CHANGEME: Will you use SQLite instead of PostgreSQL? If so, you won't need the Docker-Compose setup.
+sqlite = "3.51.2"
 
 [settings]
 # Hooks are experimental
